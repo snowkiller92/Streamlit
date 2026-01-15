@@ -1,38 +1,27 @@
 import streamlit as st
 import random
-from streamlit_javascript import st_javascript
 
 st.title("🐍 Snake Game")
-
-# Capture keyboard input
-key = st_javascript("""
-    new Promise((resolve) => {
-        document.addEventListener('keydown', function handler(e) {
-            if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)) {
-                document.removeEventListener('keydown', handler);
-                resolve(e.key);
-            }
-        });
-    })
-""")
 
 # Initialize game state
 if "snake" not in st.session_state:
     st.session_state.snake = [(5, 5)]
     st.session_state.food = (random.randint(0, 9), random.randint(0, 9))
+    st.session_state.direction = "RIGHT"
     st.session_state.score = 0
     st.session_state.game_over = False
 
-# Process key press
-if key and not st.session_state.game_over:
+def move():
+    if st.session_state.game_over:
+        return
     head = st.session_state.snake[0]
-    if key == "ArrowUp":
+    if st.session_state.direction == "UP":
         new_head = (head[0], head[1] - 1)
-    elif key == "ArrowDown":
+    elif st.session_state.direction == "DOWN":
         new_head = (head[0], head[1] + 1)
-    elif key == "ArrowLeft":
+    elif st.session_state.direction == "LEFT":
         new_head = (head[0] - 1, head[1])
-    elif key == "ArrowRight":
+    else:
         new_head = (head[0] + 1, head[1])
     
     if new_head[0] < 0 or new_head[0] > 9 or new_head[1] < 0 or new_head[1] > 9:
@@ -47,6 +36,28 @@ if key and not st.session_state.game_over:
         else:
             st.session_state.snake.pop()
 
+# Controls
+st.write("**Controls:**")
+col1, col2, col3 = st.columns([1,1,1])
+with col2:
+    if st.button("⬆️", use_container_width=True):
+        st.session_state.direction = "UP"
+        move()
+
+col1, col2, col3 = st.columns([1,1,1])
+with col1:
+    if st.button("⬅️", use_container_width=True):
+        st.session_state.direction = "LEFT"
+        move()
+with col2:
+    if st.button("⬇️", use_container_width=True):
+        st.session_state.direction = "DOWN"
+        move()
+with col3:
+    if st.button("➡️", use_container_width=True):
+        st.session_state.direction = "RIGHT"
+        move()
+
 # Draw grid
 grid = ""
 for y in range(10):
@@ -60,13 +71,14 @@ for y in range(10):
     grid += "\n"
 
 st.text(grid)
-st.write(f"Score: {st.session_state.score}")
+st.write(f"**Score: {st.session_state.score}**")
 
 if st.session_state.game_over:
     st.error("Game Over!")
-    if st.button("Restart"):
+    if st.button("🔄 Restart"):
         st.session_state.snake = [(5, 5)]
         st.session_state.food = (random.randint(0, 9), random.randint(0, 9))
+        st.session_state.direction = "RIGHT"
         st.session_state.score = 0
         st.session_state.game_over = False
         st.rerun()
