@@ -39,8 +39,9 @@ with col1:
         st.rerun()
 
 with col2:
-    if st.button("▶️ Play sound"):
+    if st.button("▶️ ΔΩΡΕΑΝ ΜΟΡΦΩΣΗ"):
         with open("gio.mp3", "rb") as f:
             audio_bytes = f.read()
             audio_base64 = base64.b64encode(audio_bytes).decode()
             st.markdown(f'<audio autoplay><source src="data:audio/mp3;base64,{audio_base64}" type="audio/mp3"></audio>', unsafe_allow_html=True)
+
