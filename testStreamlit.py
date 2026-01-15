@@ -32,11 +32,9 @@ current_time = datetime.now(athens_tz).strftime("%H:%M:%S")
 
 st.write(f"Current time in Athens: {current_time}")
 
-    if st.button("Update Time"):
-        st.rerun()
+if st.button("Refresh time"):
+    st.rerun()
 
-st.write("Δωρεάν Μόρφωση")  # Change this to whatever you want
+st.write("🎵 Gio's Theme Song")  # Change this to whatever you want
 st.audio("gio.mp3")
-
-
 
