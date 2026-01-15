@@ -70,10 +70,4 @@ if st.session_state.game_over:
         st.session_state.score = 0
         st.session_state.game_over = False
         st.rerun()
-```
 
-And add to your `requirements.txt`:
-```
-streamlit
-pytz
-streamlit-javascript
