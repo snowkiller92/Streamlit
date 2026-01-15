@@ -35,6 +35,7 @@ st.write(f"Current time in Athens: {current_time}")
 if st.button("Refresh time"):
     st.rerun()
 
-st.write("🎵 Gio's Theme Song")  # Change this to whatever you want
+st.write("Δωρεάν Μόρφωση")  # Change this to whatever you want
 st.audio("gio.mp3")
+
 
