@@ -35,7 +35,7 @@ st.write(f"Current time in Athens: {current_time}")
 col1, col2 = st.columns(2)
 
 with col1:
-    if st.button("ΜΟΡΦΩΣΗ"):
+    if st.button("Update Time"):
         st.rerun()
 
 with col2:
@@ -44,4 +44,5 @@ with col2:
             audio_bytes = f.read()
             audio_base64 = base64.b64encode(audio_bytes).decode()
             st.markdown(f'<audio autoplay><source src="data:audio/mp3;base64,{audio_base64}" type="audio/mp3"></audio>', unsafe_allow_html=True)
+
 
